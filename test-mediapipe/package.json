@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@mediapipe/tasks-audio": "^0.10.1"
+  }
+}

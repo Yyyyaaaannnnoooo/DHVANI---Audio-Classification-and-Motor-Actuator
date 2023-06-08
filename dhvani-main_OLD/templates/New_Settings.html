@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <title>Settings</title>
+  </head>
+  <body>
+
+    
+
+   
+
+
+<div class="container mt-5">
+
+<form action = "/settings" method="POST" autocomplete="off">
+
+  <div class="row">
+
+
+          <div class="col">
+
+            <h2 style="font-family: 'Pacifico', cursive;">Device 1</h2>
+
+           <div class="form-row">
+
+              <div class="form-group col-md-6">
+                <label>IP Address</label>
+                  {% if var_dict.device1_ip %}
+                  <input class="form-control" type="text" id="device1_ip" name="device1_ip" value="{{ var_dict.device1_ip }}">
+                  {% else %}
+                  <input class="form-control" type="text" id="device1_ip" name="device1_ip" value="127.0.0.1">
+                  {% endif %}
+              </div>
+
+            <div class="form-group col-md-6">
+                <label>Port</label>
+                  {% if var_dict.device1_port %}
+                  <input class="form-control" type="text" id="device1_port" name="device1_port" value="{{ var_dict.device1_port }}">
+                  {% else %}
+                  <input class="form-control" type="text" id="device1_port" name="device1_port" value="8080">
+                  {% endif %}
+            </div>
+
+          </div>
+
+
+
+          </div>
+
+          <!--################# Device 2 #############-->
+
+
+          <div class="col">
+
+          <h2 style="font-family: 'Pacifico', cursive;">Device 2</h2>
+
+           <div class="form-row">
+              <div class="form-group col-md-6">
+                  <label>IP Address</label>
+                  {% if var_dict.device1_ip %}
+                   <input class="form-control" type="text" id="device2_ip" name="device2_ip" value="{{ var_dict.device2_ip }}" >
+                  {% else %}
+                  <input class="form-control" type="text" id="device2_ip" name="device2_ip" value="127.0.0.1">
+                  {% endif %}
+                </div>
+
+              <div class="form-group col-md-6">
+                  <label>Port</label>
+                  {% if var_dict.device1_port %}
+                   <input class="form-control" type="text" id="device2_port" name="device2_port" value="{{ var_dict.device2_port }}" >
+                  {% else %}
+                  <input class="form-control" type="text" id="device2_port" name="device2_port" value="8080">
+                  {% endif %}
+                </div>
+          </div>
+
+
+
+    </div>
+
+
+<!-- row div -->
+</div> 
+
+<hr>
+
+
+
+
+<button type="submit" class="btn btn-info">Save</button>
+
+
+</form>
+<!--end container_div -->
+  </div>
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

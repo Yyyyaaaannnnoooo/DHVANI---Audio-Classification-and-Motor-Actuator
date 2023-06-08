@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <title>Settings</title>
+  </head>
+  <body>
+
+    
+
+   
+
+
+<div class="container mt-5">
+<form action = "/settings" method="POST">
+
+<div class="row">
+
+  <div class="col">
+
+<h2>Device 1</h2>
+
+ <div class="form-row">
+
+  <div class="form-group col-md-6">
+    <label>IP Address</label>
+      {% if var_dict.device1_ip %}
+      <input class="form-control" type="text" id="device1_ip" name="device1_ip" value="{{ var_dict.device1_ip }}">
+      {% else %}
+      <input class="form-control" type="text" id="device1_ip" name="device1_ip" value="127.0.0.1">
+      {% endif %}
+  </div>
+
+    <div class="form-group col-md-6">
+    <label>Port</label>
+      {% if var_dict.device1_port %}
+      <input class="form-control" type="text" id="device1_port" name="device1_port" value="{{ var_dict.device1_port }}">
+      {% else %}
+      <input class="form-control" type="text" id="device1_port" name="device1_port" value="8080">
+      {% endif %}
+  </div>
+
+</div>
+
+<div class="form-row">
+  <div class="form-group col-md-6">
+    <label>Motor 1 Speed</label>
+    {% if var_dict.device1_m1_speed %}
+     <input class="form-control" type="text"  id="device1_m1" name="device1_m1_speed" value="{{ var_dict.device1_m1_speed }}" >
+    {% else %}
+    <input class="form-control" type="text"  id="device1_m1" name="device1_m1_speed" value="0">
+    {% endif %}
+  </div>
+
+    <div class="form-group col-md-6">
+    <label>Motor 2 Speed</label>
+    {% if var_dict.device1_m2_speed %}
+    <input class="form-control" type="text" id="device1_m2" name="device1_m2_speed" value="{{ var_dict.device1_m2_speed }}" >
+    {% else %}
+    <input class="form-control" type="text" id="device1_m2" name="device1_m2_speed" value="0">
+    {% endif %}
+  </div>
+</div>
+
+
+
+<div class="form-row">
+   <div class="form-group col-md-6">
+    <label>Cooldown Time</label>
+    {% if var_dict.device1_cooldown_time %}
+      <input class="form-control" type="text" id="device1_cooldown_time" name="device1_cooldown_time" value="{{ var_dict.device1_cooldown_time }}">
+      {% else %}
+      <input class="form-control" type="text" id="device1_cooldown_time" name="device1_cooldown_time" value="0">
+      {% endif %}
+   </div>
+
+      <div class="form-group col-md-6">
+        <label>Bell Count</label>
+        {% if var_dict.device1_bell_count %}
+        <input class="form-control" type="text" id="device1_bell_count" name="device1_bell_count" value="{{ var_dict.device1_bell_count }}">
+        {% else %}
+        <input class="form-control" type="text" id="device1_bell_count" name="device1_bell_count" value="0">
+        {% endif %}
+      </div>
+  </div>
+
+
+
+
+
+</div>
+
+<!--###################################################### Device 2 ##########################################################-->
+
+
+<div class="col">
+
+<h2 style="font-family: 'Pacifico', cursive;">Device 2</h2>
+
+
+ <div class="form-row">
+    <div class="form-group col-md-6">
+        <label>IP Address</label>
+        {% if var_dict.device1_ip %}
+         <input class="form-control" type="text" id="device2_ip" name="device2_ip" value="{{ var_dict.device2_ip }}" >
+        {% else %}
+        <input class="form-control" type="text" id="device2_ip" name="device2_ip" value="127.0.0.1">
+        {% endif %}
+      </div>
+
+    <div class="form-group col-md-6">
+        <label>Port</label>
+        {% if var_dict.device1_port %}
+         <input class="form-control" type="text" id="device2_port" name="device2_port" value="{{ var_dict.device2_port }}" >
+        {% else %}
+        <input class="form-control" type="text" id="device2_port" name="device2_port" value="8080">
+        {% endif %}
+      </div>
+</div>
+
+
+
+ <div class="form-row">
+  <div class="form-group col-md-6">
+    <label>Motor 1 Speed</label>
+    {% if var_dict.device2_m1_speed %}
+    <input class="form-control" type="text"  id="device2_m1" name="device2_m1_speed" value="{{ var_dict.device2_m1_speed }}">
+    {% else %}
+    <input class="form-control" type="text"  id="device2_m1" name="device2_m1_speed" value="0">
+    {% endif %}
+  </div>
+
+    <div class="form-group col-md-6">
+    <label>Motor 2 Speed</label>
+    {% if var_dict.device2_m2_speed %}
+    <input class="form-control" type="text" id="device2_m2" name="device2_m2_speed" value="{{ var_dict.device2_m2_speed }}" >
+    {% else %}
+    <input class="form-control" type="text" id="device2_m2" name="device2_m2_speed" value="0">
+    {% endif %}
+  </div>
+</div>
+
+
+<div class="form-row">
+   <div class="form-group col-md-6">
+    <label>Cooldown Time</label>
+    {% if var_dict.device2_cooldown_time %}
+      <input class="form-control" type="text" id="device2_cooldown_time" name="device2_cooldown_time" value="{{ var_dict.device2_cooldown_time }}">
+      {% else %}
+      <input class="form-control" type="text" id="device2_cooldown_time" name="device2_cooldown_time" value="0">
+      {% endif %}
+   </div>
+
+      <div class="form-group col-md-6">
+        <label>Bell Count</label>
+        {% if var_dict.device2_bell_count %}
+        <input class="form-control" type="text" id="device2_bell_count" name="device2_bell_count" value="{{ var_dict.device2_bell_count }}">
+        {% else %}
+        <input class="form-control" type="text" id="device2_bell_count" name="device2_bell_count" value="0">
+        {% endif %}
+      </div>
+  </div>
+
+
+
+  
+</div>
+
+
+
+</div>
+
+<button type="submit" class="btn btn-info">Save</button>
+
+</form>
+
+<hr>
+
+
+
+    <!-- Testing View -->
+
+
+    <span style="font-family: 'Pacifico', cursive; font-size: 30px;" >Testing </span><span class="text-muted" style="font-size: 14px;">save the form before testing</span>
+
+
+    <div class="container mt-5">
+        <div class="row">
+              <div class="col-md-6">
+               <a href="{{ url_for('Testing', device_name='device1') }}" class="btn btn-outline-info  btn-block m-1">Test Device 1</a>
+              </div>
+
+              <div class="col-md-6">
+                <a href="{{ url_for('Testing', device_name='device2') }}" class="btn btn-outline-info  btn-block m-1">Test Device 2</a>
+              </div>
+
+          </div>
+      </div>
+
+<hr>
+
+
+  </div>
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

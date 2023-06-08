@@ -1,0 +1,68 @@
+<!-- Copyright 2023 The MediaPipe Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test-mediapipe
+    </title>
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script type="module" src="index.js" defer="true"></script>
+</head>
+
+<body>
+
+
+    <h1>Audio Classification using the MediaPipe Audio Classifier task for web</h1>
+    <section id="demos" class="invisible">
+        <h3>This demo uses the MediaPipe Audio Classifier Task to list the top classes in the given audio sample.</h3>
+        <br>
+        <h2>Classify using an audio file</h2>
+        <div>Click on a button below to hear the sound and view the corresponding top classification for the audio by
+            timestamp. Click again to stop the audio.</div>
+        <div>
+            <div class="input" style="float: left;">
+                <audio id="audioClip1" src="./audio/ambient-sound-street.WAV"></audio>
+                <button id="classifyBtn1" class="mdc-button mdc-button--raised">
+                    <span class="mdc-button__label">AUDIO 1 - STREET</span>
+                </button>
+                <table id="audioResult1" class="removed"></table>
+            </div>
+            <div class="input" style="margin-left: 50%;">
+                <audio id="audioClip2" src="./audio/footsteps-downstairs-carpet-1.WAV"></audio>
+                <button id="classifyBtn2" class="mdc-button mdc-button--raised">
+                    <span class="mdc-button__label">AUDIO 2 - FOOTSTEPS</span>
+                </button>
+                <table id="audioResult2" class="removed">
+                </table>
+            </div>
+
+        </div>
+        <div style="top: 30px; position: relative; clear: both;">
+            <h2>Stream audio classifications</h2>
+            <div>Click <b>Start Classifying</b> to start streaming classifications of your own audio.</div>
+            <button class="mdc-button mdc-button--raised" id="microBt">
+                <span class="mdc-button__label">START CLASSIFYING</span>
+            </button>
+            <p id="microResult"></p>
+        </div>
+
+    </section>
+</body>
+
+</html>
