@@ -16,7 +16,8 @@ import threading
 
 
 try:
-    arduino = serial.Serial('/dev/ttyACM0')
+    # arduino = serial.Serial('/dev/ttyACM0')
+    arduino = serial.Serial('/dev/tty.usbmodem111301')
     print('connected to arduino')
 except:
     arduino = serial.Serial('/dev/ttyACM1')
@@ -35,7 +36,7 @@ socketio = SocketIO(app)
 
 
 # Variables
-delay_between_notes = 2
+delay_between_notes = 1
 
 bell_1 = {
         "count": 0,
@@ -128,16 +129,14 @@ message passed from javascript
 @socketio.on('message')
 def handle_message(data):
     # HERE THE CODE SHOULD READ WHEN THE ROBOTIC ARM IS DONE WITH ITS ACTIONS
-    # print("received data")
+    print("received data")
+    logger.debug(data)
     # try:
     # except:
     #     print("no message")
-    # serial_read = arduino.readline()
-    # decoded = str(serial_read[0:len(serial_read)-2].decode("utf-8"))
-    # print(decoded)
+    
     var_dict = {}
     var_dict = dict_maker(var_dict)
-
 
     #New Code
 
@@ -149,9 +148,7 @@ def handle_message(data):
 
     sound_type = data["sound_type"]
     accuracy = data["accuracy"]
-
-
-
+    
     trigger_dict = {
         var_dict["sound_type_1"] : {
             "speed_limit_max" : var_dict["speed_limit_max_1"],
@@ -186,7 +183,8 @@ def handle_message(data):
     # Command Sender to Motor
     
     params = trigger_dict.get(sound_type)
-
+    logger.debug("is it going to play: " + str(state_dict["ringing"]))
+    logger.debug("line 197")
     if state_dict["ringing"] == False and sound_type != "Background Noise" and accuracy >= params["accuracy_range"]: # add accuracy threshold + threshold in database
         # logger.debug(params["accuracy_range"])
         
@@ -211,10 +209,13 @@ def handle_message(data):
                                                       params["speed_limit_min"],
                                                       params["no_of_notes"])
         state_dict['ringing'] = True
+        now = data["id"]
         # this is important to prevent overflowing the read/write buffer
         # arduino.flushInput()
+        logger.debug("-----------------------------------")
+        logger.debug(notes_to_play)
         for note in notes_to_play:
-            # logger.debug(note)
+            logger.debug("playing id: " + str(now))
             logger.debug("motor activate")
             cmd = "startf"+str(note)+"b"+str(note)
             logger.debug(cmd)
@@ -224,9 +225,26 @@ def handle_message(data):
             # final_note_d2 = note["device2"].encode("utf-8")
             # client_socket.sendto(final_note_d1,client_addr_d1)
             # client_socket.sendto(final_note_d2,client_addr_d2)
-            time.sleep(delay_between_notes)
- 
-        state_dict['ringing'] = False
+            # time.sleep(delay_between_notes)
+            logger.debug("motor stop")
+        time.sleep(delay_between_notes)
+        logger.debug("done playing: " + str(now))
+        logger.debug("/////////////////////////////////////")
+        # this below might cause problems need a better solution in the future
+        while True:
+          try:
+            serial_read = arduino.readline()
+            decoded = str(serial_read[0:len(serial_read)-2].decode("utf-8"))
+          except:
+            decoded = "not done"
+
+          if decoded == "done":
+            state_dict["ringing"] = False
+            logger.debug(decoded +  ": " + str(state_dict["ringing"]))
+            break
+
+          arduino.flushInput()
+        # state_dict['ringing'] = False
     else:
         pass
 
@@ -314,7 +332,6 @@ def test_disconnect():
 @app.route('/',methods=['GET','POST'])
 def Main():
     return render_template('Main_page.html')
-    # return render_template('../static/js/mediapipe/index.html')
 
             
 
@@ -392,7 +409,9 @@ def Settings():
     return render_template('dhvwani_settings.html',var_dict=var_dict)
             
 def myfunction():
-    os.system("chromium-browser http://127.0.0.1:5000/")
+    # os.system("chromium-browser http://127.0.0.1:5000/")
+    # to use on mac environment
+    os.system("open /Applications/Google\ Chrome.app -g http://127.0.0.1:5000/")
     
 t1 = threading.Thread(target=myfunction)
 t1.start()    

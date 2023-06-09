@@ -58,12 +58,12 @@ void loop(){
     String initCMD = Serial.readStringUntil('\n');
     motorCWSpeed = initCMD.substring(6,8).toInt();
     if(motorCWSpeed == 0){
-      motorCWSpeed = 1;
+      motorCWSpeed = 10;
     }
     Serial.println(motorCWSpeed);
     motorCCWSpeed = initCMD.substring(9,11).toInt();
     if(motorCCWSpeed == 0){
-      motorCWSpeed = 1;
+      motorCWSpeed = 10;
     }
     Serial.println(motorCCWSpeed);
     if(initCMD.substring(0,5) == "start"){
@@ -73,6 +73,7 @@ void loop(){
       } 
    }
   int readPin = digitalRead(feedbackPin);
+  // Serial.println(readPin);
   if(readPin == LOW){
     doHoming();
     digitalWrite(flagPin,HIGH);
