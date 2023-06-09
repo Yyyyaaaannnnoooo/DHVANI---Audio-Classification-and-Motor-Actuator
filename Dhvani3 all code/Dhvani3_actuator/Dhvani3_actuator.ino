@@ -23,7 +23,7 @@ serial which can be processed in python and send start msg for next cycle.
 #define flagPin 8
 #define feedbackPin 12
 
-String initCMD;   //Serial data from raspberry pi to start arm movement cycle
+String            jlhzjdvhj;   //Serial data from raspberry pi to start arm movement cycle
 int sw1Counter = 0;
 int motorCWSpeed = 25; //Motor CW rotation speed range 0 - 255
 int motorCCWSpeed = 25; //Motor CCW rotation speed range 0 - 255

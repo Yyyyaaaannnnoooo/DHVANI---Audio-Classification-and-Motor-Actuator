@@ -17,6 +17,7 @@ import threading
 
 try:
     arduino = serial.Serial('/dev/ttyACM0')
+    print('connected to arduino')
 except:
     arduino = serial.Serial('/dev/ttyACM1')
 
@@ -63,9 +64,9 @@ bell_4 = {
 
 state_dict = {'ringing': False}
 
-def random_notes_generator_single(speed_limit_max = 110,
-                                  speed_limit_min = 100,
-                                  no_of_notes = 3
+def random_notes_generator_single(speed_limit_max = 10,
+                                  speed_limit_min = 99,
+                                  no_of_notes = 1
                                   ):
     
     l = [(random.randrange(int(speed_limit_min), int(speed_limit_max))) for i in range(int(no_of_notes))]
@@ -73,8 +74,8 @@ def random_notes_generator_single(speed_limit_max = 110,
 
 
 def random_notes_generator(no_of_motors = 4,
-                           speed_limit_max = 110,
-                           speed_limit_min = 100,
+                           speed_limit_max = 10,
+                           speed_limit_min = 99,
                            no_of_notes = 3
                            ):
     # no_of_motors = 4
@@ -126,8 +127,14 @@ message passed from javascript
 
 @socketio.on('message')
 def handle_message(data):
-    # print(data)
-
+    # HERE THE CODE SHOULD READ WHEN THE ROBOTIC ARM IS DONE WITH ITS ACTIONS
+    # print("received data")
+    # try:
+    # except:
+    #     print("no message")
+    # serial_read = arduino.readline()
+    # decoded = str(serial_read[0:len(serial_read)-2].decode("utf-8"))
+    # print(decoded)
     var_dict = {}
     var_dict = dict_maker(var_dict)
 
@@ -181,7 +188,7 @@ def handle_message(data):
     params = trigger_dict.get(sound_type)
 
     if state_dict["ringing"] == False and sound_type != "Background Noise" and accuracy >= params["accuracy_range"]: # add accuracy threshold + threshold in database
-        logger.debug(params["accuracy_range"])
+        # logger.debug(params["accuracy_range"])
         
         # print("Device Activate",end="\r")
         # UDP Socket
@@ -195,25 +202,30 @@ def handle_message(data):
         
         # notes_to_play = random_notes_generator(4,
         #                                         params["speed_limit_max"],
+
         #                                         params["speed_limit_min"],
+
         #                                         params["no_of_notes"])
 
         notes_to_play = random_notes_generator_single(params["speed_limit_max"],
                                                       params["speed_limit_min"],
                                                       params["no_of_notes"])
         state_dict['ringing'] = True
-
+        # this is important to prevent overflowing the read/write buffer
+        # arduino.flushInput()
         for note in notes_to_play:
-            logger.debug(note)
+            # logger.debug(note)
             logger.debug("motor activate")
-            arduino.write(str(note).encode())
+            cmd = "startf"+str(note)+"b"+str(note)
+            logger.debug(cmd)
+            arduino.write(str(cmd).encode())
 
             # final_note_d1 = note["device1"].encode("utf-8")
             # final_note_d2 = note["device2"].encode("utf-8")
             # client_socket.sendto(final_note_d1,client_addr_d1)
             # client_socket.sendto(final_note_d2,client_addr_d2)
             time.sleep(delay_between_notes)
-
+ 
         state_dict['ringing'] = False
     else:
         pass
@@ -249,7 +261,7 @@ def note_test():
         state_dict['ringing'] = True
 
         for note in notes_to_play:
-            logger.debug(note)
+            # logger.debug(note)
             final_note_d1 = note["device1"].encode("utf-8")
             final_note_d2 = note["device2"].encode("utf-8")
             client_socket.sendto(final_note_d1,client_addr_d1)
@@ -261,7 +273,7 @@ def note_test():
 #**********************************************************************************************************
 @app.route('/testing/<device_name>',methods=['GET','POST'])
 def Testing(device_name):
-    logger.debug(device_name)
+    # logger.debug(device_name)
     var_dict = {}
     var_dict = dict_maker(var_dict)
 
@@ -302,6 +314,8 @@ def test_disconnect():
 @app.route('/',methods=['GET','POST'])
 def Main():
     return render_template('Main_page.html')
+    # return render_template('../static/js/mediapipe/index.html')
+
             
 
 
@@ -355,7 +369,7 @@ def Settings():
         for form_var in var_list:
             var_dict[form_var] = request.form.get(form_var)
 
-        logger.debug(var_dict)
+        # logger.debug(var_dict)
 
 
 
@@ -364,7 +378,7 @@ def Settings():
         db.update(var_dict, query.project == "dhvwani")
 
 
-        logger.debug("data save successfully")
+        # logger.debug("data save successfully")
 
         return render_template('dhvwani_settings.html',var_dict=var_dict)
 
@@ -372,7 +386,7 @@ def Settings():
     # showing data to settings.html at loading time
          
     var_dict = dict_maker(var_dict)
-    logger.debug(var_dict)
+    # logger.debug(var_dict)
 
 
     return render_template('dhvwani_settings.html',var_dict=var_dict)
@@ -382,6 +396,7 @@ def myfunction():
     
 t1 = threading.Thread(target=myfunction)
 t1.start()    
+
 
 if __name__ == '__main__':
     # app.run(debug=True)

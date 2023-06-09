@@ -1,4 +1,4 @@
-// Copyright (c) 2019 ml5
+ // Copyright (c) 2019 ml5
 //
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
@@ -67,7 +67,7 @@ function gotResult(error, results) {
   accuracy = results[0].confidence
 
   obj = { "sound_type": label, "accuracy": accuracy };
-
+  
   console.log(obj)
   socket.send(obj)
 

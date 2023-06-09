@@ -52,6 +52,7 @@ void setup(){
 }
 
 void loop(){
+  Serial.println("running");
   //if(initCMD.equals("start"))
   if(Serial.available()){
     String initCMD = Serial.readStringUntil('\n');
