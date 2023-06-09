@@ -2,6 +2,7 @@
 Dhvani3 Robotic Arm firmware
 Project by Budhadtiya 
 Firmware developer : Craftronixlab Technologies  
+Version : 2.0
 --------------------------------------------------------------------------------------------------
 Debug message sequence for one movement cycle:
 Started 
@@ -13,6 +14,11 @@ done (use it as an ACK signal to chk status of the arm)
 
 Uncomment debug msg lines for debugging otherwise it will only send done msg to raspberry pi's
 serial which can be processed in python and send start msg for next cycle.
+
+Message format : startFxBx (x denotes the speed for forward and backward)
+
+For e.g : If user wants to move the arm to forward at the speed of 45 and backward at the speed of 25 the command sent to the serial will be 
+          startF45B25
 --------------------------------------------------------------------------------------------------
 */
 
@@ -20,35 +26,43 @@ serial which can be processed in python and send start msg for next cycle.
 #define lsw2Pin 3
 #define motorPWM 6 //Motor external PWM set JP4 to X and JP6 to EXTPWM in the motor driver 
 #define motorDIR 7 //Motor direction control 
-#define flagPin 8
-#define feedbackPin 12
+#define flagPin 9
+#define feedbackPin 10
+#define testPin A1
+#define cycleStatus A0
 
-String            jlhzjdvhj;   //Serial data from raspberry pi to start arm movement cycle
+String initCMD;   //Serial data from raspberry pi to start arm movement cycle
 int sw1Counter = 0;
-int motorCWSpeed = 25; //Motor CW rotation speed range 0 - 255
-int motorCCWSpeed = 25; //Motor CCW rotation speed range 0 - 255
- 
+int motorCWSpeed; //motor CW speed range 0 - 255
+int motorCCWSpeed; //motor CCW speed range 0 - 255
+
 void setup(){
   Serial.begin(9600);
   pinMode(lsw1Pin,INPUT);
   pinMode(lsw2Pin,INPUT);
+  pinMode(testPin, INPUT);
   pinMode(feedbackPin,INPUT);
   pinMode(motorPWM,OUTPUT);
   pinMode(motorDIR,OUTPUT);
   pinMode(flagPin,OUTPUT);
+  pinMode(cycleStatus, OUTPUT);
   digitalWrite(flagPin,HIGH);
   attachInterrupt(digitalPinToInterrupt(lsw1Pin), CW, CHANGE);
   attachInterrupt(digitalPinToInterrupt(lsw2Pin), CCW, LOW);
 }
 
 void loop(){
+  Serial.println("running");
+  //if(initCMD.equals("start"))
   if(Serial.available()){
-    initCMD = Serial.readStringUntil('\n');
-    initCMD.trim();
-    if(initCMD.equals("start")){
+    String initCMD = Serial.readStringUntil('\n');
+    motorCWSpeed = initCMD.substring(6,8).toInt();
+    motorCCWSpeed = initCMD.substring(9,11).toInt();
+    if(initCMD.substring(0,5) == "start"){
       //Serial.println("Started");
       runCycle();
-    } 
+      digitalWrite(cycleStatus, HIGH);
+      } 
    }
   int readPin = digitalRead(feedbackPin);
   if(readPin == LOW){
@@ -100,4 +114,5 @@ void doHoming(){
   delay(700);
   stopMotor();
   Serial.println("done");
+  digitalWrite(cycleStatus, LOW);
 }
