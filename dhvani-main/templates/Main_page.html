@@ -1,0 +1,28 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Webcam Image Classification using a pre-trained customized model and p5.js</title>
+
+  <script src="{{ url_for('static', filename='js/socket.io.js') }}"></script>
+  <script type="module" src="{{ url_for('static', filename='js/mediapipe/index.js') }}"></script>
+</head>
+
+<body>
+    <h1>Audio Classification using the MediaPipe Audio Classifier task for web</h1>
+    <section id="demos" class="invisible">
+    <div style="top: 30px; position: relative; clear: both;">
+      <h2>Stream audio classifications</h2>
+      <div>Click <b>Start Classifying</b> to start streaming classifications of your own audio.</div>
+      <button class="mdc-button mdc-button--raised" id="microBt">
+        <span class="mdc-button__label">START CLASSIFYING</span>
+      </button>
+      <p id="microResult"></p>
+    </div>
+    
+  </section>
+  <script type="module" src="{{ url_for('static', filename='js/mediapipe/index.js') }}" defer="true" charset="utf-8"></script>
+</body>
+
+
+</html>

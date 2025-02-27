@@ -1,0 +1,9 @@
+flask
+loguru
+tinydb
+Flask-SocketIO
+simple-websocket
+flask-wtf
+sounddevice
+numpy
+mediapipe
