@@ -7,3 +7,4 @@ flask-wtf
 sounddevice
 numpy
 mediapipe
+pyserial
