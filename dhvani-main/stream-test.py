@@ -26,7 +26,11 @@ trends = [[],[],[],[],[],[]]
 classifiers = []
 arduinos = []
 arduinos_usb_paths = [
-  '/dev/cu.usbmodem11301'
+  '/dev/cu.usbmodem11301',
+  '/dev/cu.usbmodem11101',
+  '/dev/cu.usbmodem11201',
+  '/dev/cu.usbmodem114301',
+  '/dev/cu.usbmodem114101',
 ]
 
 arduino = 0
@@ -91,6 +95,7 @@ def actuate_motors(time):
     for i in range(loop_length):
       slope = analysis[i]["slope"]
       print(slope)
+      print(f"activate arduino number: {i} at {arduinos_usb_paths[i]}")
       if slope > 0:
         print("positive slope")
         send_command(80, arduinos[i])
@@ -243,7 +248,7 @@ def connect_arduinos():
       print('connected to arduino: ' + usb_path)
       tt.sleep(2)
       arduinos.append(arduino)
-      send_command(50, arduino)
+      # send_command(50, arduino)
     arduino_connected = True
   except:
       # arduino = serial.Serial('/dev/ttyACM1')

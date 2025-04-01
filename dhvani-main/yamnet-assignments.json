@@ -9,8 +9,6 @@
     "Conversation",
     "Narration, monologue",
     "Babbling",
-    "Shout",
-    "Yell",
     "Screaming",
     "Hubbub, speech noise, speech babble",
     "Chatter",
@@ -107,5 +105,9 @@
     "Didgeridoo",
     "Shofar",
     "Theremin"
+  ],
+  "gong": [
+    "Shout",
+    "Yell"
   ]
 }
