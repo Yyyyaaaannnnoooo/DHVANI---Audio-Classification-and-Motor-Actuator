@@ -6,5 +6,5 @@ This is the repository for all of the software that I developed and contributed 
 
 ### TO DO:
 * port audio classification to python ✅
-* add six arduino boards connection to python
+* add six arduino boards connection to python (1/6 ✅)
 * interface to see classification on web
