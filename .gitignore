@@ -265,3 +265,4 @@ pyrightconfig.json
 # Ableton file
 TEST-Sounds/test-channels Project
 TEST-Sounds/*.wav.asd
+arduino/*.zip
