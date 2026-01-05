@@ -8,7 +8,3 @@ This is the repository for all of the software that I developed and contributed 
 ### June 2023 [ISEA2023: 28th International Symposium on Electronic Art](https://www.isea-symposium-archives.org/art-events/dhvani-by-budhaditya-chattopadhyay/) |  Paris, France
 ### April 2024 – October 2024 [House of Digital Art Indian Ocean](https://houseofdigitalart.io/project/budhaditya-chattopadhyay/) | Mauritius, Indian Ocean
 ### April 2025 – September 2025 [Hear Here Festival](https://hearhere.be/en/expo/dhv%C4%81ni) | Leuven, Belgium
-
-### TO DO:
-* port audio classification to python ✅
-* add six arduino boards connection to python (1/6 ✅)
